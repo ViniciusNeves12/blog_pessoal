@@ -6,12 +6,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A anotação @Entity indica que a classe é uma entidade, ou seja, ele será
@@ -20,7 +23,6 @@ import org.hibernate.annotations.UpdateTimestamp;
  * A anotação @Table indica o nome da tabela no Banco de dados. Caso ela não
  * seja declarada, o Banco criará a tabela com o mesmo nome da classe.
  */
-
 @Entity
 @Table(name = "tb_postagens")
 public class Postagem {
@@ -82,6 +84,25 @@ public class Postagem {
 	private LocalDateTime data;
 
 	/**
+	 * Anotação @ManyToOne: Anotação que indica que a Classe Postagem terá um
+	 * relacionamento do tipo Many To One (Muitos para Um) com a Classe Tema
+	 * 
+	 * Anotação @JsonIgnoreProperties("postagem"): Anotação que desabilita a
+	 * recursividade infinita durante a exibição dos dados no formato JSON
+	 * (Desserialização).
+	 * 
+	 * private Tema tema;: Objeto do tipo Tema que atuará como a "chave estrangeira"
+	 * da Classe Postagem na relação com a Classe Tema, além de exibir o tema da
+	 * postagem
+	 * 
+	 * Não esqueça de criar os métodos getters e setters para o atributo tema.
+	 */
+
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Tema tema;
+
+	/**
 	 * 
 	 * Os Métodos Get e Set obrigatoriamente devem ser criados para todos os
 	 * atributos da Classe, inclusive os novos atributos que forem adicionados no
@@ -118,6 +139,17 @@ public class Postagem {
 
 	public void setData(LocalDateTime data) {
 		this.data = data;
+	}
+
+	/**
+	 * Métodos Get e Set para o atributo tema
+	 */
+	public Tema getTema() {
+		return this.tema;
+	}
+
+	public void setTema(Tema tema) {
+		this.tema = tema;
 	}
 
 }
