@@ -102,6 +102,10 @@ public class Postagem {
 	@JsonIgnoreProperties("postagem")
 	private Tema tema;
 
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
+
 	/**
 	 * 
 	 * Os Métodos Get e Set obrigatoriamente devem ser criados para todos os
@@ -109,6 +113,14 @@ public class Postagem {
 	 * decorrer do processo de Desenvolvimento.
 	 * 
 	 */
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
 	public Long getId() {
 		return id;
 	}
