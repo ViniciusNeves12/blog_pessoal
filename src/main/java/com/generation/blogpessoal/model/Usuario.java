@@ -44,7 +44,7 @@ public class Usuario {
 	public Usuario() {
 	}
 
-	public Usuario(Long id, String nome, String usuario, String senha, String foto) {
+	public Usuario (Long id, String nome, String usuario, String senha, String foto) {
 		this.id = id;
 		this.nome = nome;
 		this.usuario = usuario;
